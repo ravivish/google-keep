@@ -1,0 +1,28 @@
+.add-notes{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 2px 3px 11px 8px #888888;
+    margin: 1em 35em;
+    padding: 1em 1em;
+    gap: 1em;
+}
+.note-title{
+    /* display: none; */
+    padding: 1em 1em;
+    border-radius: 5px;
+    border: 1px solid #000;
+    width: 100%;
+}
+
+.note-body{
+    padding: 1em 1em;
+    border-radius: 5px;
+    border: 1px solid #000;
+    width: 100%;
+}
+/* .close-btn{
+    display: none;
+    float: right;
+} */

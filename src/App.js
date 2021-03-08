@@ -1,25 +1,56 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import { Component } from "react";
+import AddNotes from "./AddNotes/addnotes";
+import NotesCard from "./NotesCard/notescard";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      error: null,
+      isLoaded: false,
+      noteslist: [],
+    };
+  }
+  componentDidMount() {
+    fetch(`http://localhost:3001/api/notes`)
+      .then((response) => response.json())
+      .then(
+        (result) =>
+          this.setState({
+            isLoaded: true,
+            noteslist: result,
+          }),
+        (error) => {
+          return this.setState({
+            isLoaded: false,
+            error,
+          });
+        }
+      );
+  }
+  render() {
+    const { error, isLoaded, noteslist } = this.state;
+    if (error) {
+      <section className="App">Error Occured</section>
+    } else if (!isLoaded) {
+      return <section>Loading</section>
+    } else {
+      return (
+        <main className="App">
+          <AddNotes />
+          {noteslist.forEach((element) =>
+          {
+            <NotesCard
+              title={element.title}
+              body={element.body}
+              isPinned={element.pinnedstatus}
+            />
+          })}          
+        </main>
+      );
+    }
+  }
 }
 
 export default App;
